@@ -24,18 +24,22 @@ RegisterCommand("simcard", function(source, args, rawCommand)
         local isValid = tonumber(rawNumber) ~= nil
         if string.len(rawNumber) == 7 then
             if isValid then
-                local inventory = ESX.GetPlayerData().inventory
-                local simCardCount = nil
-                for i=1, #inventory, 1 do                          
-                    if inventory[i].name == 'sim_card' then
-                        simCardCount = inventory[i].count
+                if Config.RequiresSimItem then
+                    local inventory = ESX.GetPlayerData().inventory
+                    local simCardCount = nil
+                    for i=1, #inventory, 1 do                          
+                        if inventory[i].name == 'sim_card' then
+                            simCardCount = inventory[i].count
+                        end
                     end
-                end
-                if simCardCount > 0 then
-                    TriggerServerEvent('matriarch_simcards:useSimCard', args)               
-                else 
-                    ESX.ShowNotification("You don't have any sim cards")
-                end  
+                    if simCardCount > 0 then
+                        TriggerServerEvent('matriarch_simcards:useSimCard', args)               
+                    else 
+                        ESX.ShowNotification("You don't have any sim cards")
+                    end
+                else
+                    TriggerServerEvent('matriarch_simcards:useSimCard', args)   
+                end                  
             else
                 ESX.ShowNotification('Phone numbers must only contain digits')
             end             
