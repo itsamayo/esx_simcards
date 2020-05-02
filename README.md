@@ -10,6 +10,7 @@ gcphone (OPTIONAL) (https://github.com/N3MTV/gcphone)
 ## Installation
 - Clone or download this repository
 - Add esx_simcards to your resources directory
+- Run db.sql to insert simcard item into your DB
 - Add this in your server.cfg :
 
 ```
