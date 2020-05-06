@@ -17,14 +17,18 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
     PlayerData = xPlayer    
 end)
 
-RegisterCommand("simcard", function(source, args, rawCommand)
-    local playerPed = GetPlayerPed(-1)
-    if args[1] ~= nil then
-        local rawNumber = args[1]
-        local isValid = tonumber(rawNumber) ~= nil
-        if string.len(rawNumber) == 7 then
-            if isValid then
-                if Config.RequiresSimItem then
+RegisterNetEvent('matriarch_simcards:changeNumber')
+AddEventHandler('matriarch_simcards:changeNumber', function(xPlayer) 
+    PlayerData = xPlayer   
+    ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'number', {
+        title = "Enter your new cellphone number"
+    }, function(data, menu)
+        local number = data.value
+        if number ~= nil then
+            local rawNumber = number
+            local isValid = tonumber(rawNumber) ~= nil
+            if string.len(rawNumber) == 7 then
+                if isValid then
                     local inventory = ESX.GetPlayerData().inventory
                     local simCardCount = nil
                     for i=1, #inventory, 1 do                          
@@ -33,23 +37,26 @@ RegisterCommand("simcard", function(source, args, rawCommand)
                         end
                     end
                     if simCardCount > 0 then
-                        TriggerServerEvent('matriarch_simcards:useSimCard', args)               
+                        TriggerServerEvent('matriarch_simcards:useSimCard', number)               
                     else 
                         ESX.ShowNotification("You don't have any sim cards")
-                    end
+                    end  
                 else
-                    TriggerServerEvent('matriarch_simcards:useSimCard', args)   
-                end                  
+                    ESX.ShowNotification('Phone numbers must only contain digits')
+                end             
             else
-                ESX.ShowNotification('Phone numbers must only contain digits')
-            end             
+                ESX.ShowNotification('Phone numbers need to be ~r~7 ~w~digits')
+            end
+            menu.close()                 
         else
-            ESX.ShowNotification('Phone numbers need to be ~r~7 ~w~digits')
+            ESX.ShowNotification('~r~No number provided')
+            menu.close()
         end
-        
-    else
-        ESX.ShowNotification('~r~Missing number - ~w~Use /simcard {number}')
-    end     
+
+    end, 
+    function(data, menu)
+        menu.close()
+    end) 
 end)
 
 RegisterNetEvent('matriarch_simcards:startNumChange')

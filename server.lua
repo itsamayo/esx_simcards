@@ -29,3 +29,10 @@ AddEventHandler('matriarch_simcards:changeNumber', function(newNum)
     xPlayer.removeInventoryItem('sim_card', 1)
     TriggerClientEvent('matriarch_simcards:success', _source, newNum)
 end)
+
+-- DRIVER LICENSE CARD
+ESX.RegisterUsableItem('sim_card', function(source)
+	local src = source
+    local xPlayer = ESX.GetPlayerFromId(src)
+    TriggerClientEvent('matriarch_simcards:changeNumber', xPlayer.source)
+end)

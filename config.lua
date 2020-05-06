@@ -11,5 +11,3 @@ Config.gcphoneEnabled = true
 -- IMPORTANT in dpemotes __resource.lua add export 'OnEmotePlay' and export 'EmoteCancel' at the end of the file
 Config.UseAnimation = true
 Config.TimeToChange = 10 -- completion time in seconds
-
-Config.RequiresSimItem = true -- set to false if item is not needed to change number
