@@ -3,9 +3,9 @@ ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 RegisterServerEvent('matriarch_simcards:useSimCard')
-AddEventHandler('matriarch_simcards:useSimCard', function(args)
+AddEventHandler('matriarch_simcards:useSimCard', function(number)
     local _source = source
-    local rawNumber = args[1]
+    local rawNumber = number
     local xPlayer = ESX.GetPlayerFromId(_source)
     local numFirstThree = string.sub(rawNumber, 1, 3)
     local numLastFour = string.sub(rawNumber, 4, 7)
