@@ -28,6 +28,7 @@ AddEventHandler('matriarch_simcards:changeNumber', function(newNum)
     })
     xPlayer.removeInventoryItem('sim_card', 1)
     TriggerClientEvent('matriarch_simcards:success', _source, newNum)
+    TriggerClientEvent('gcPhone:myPhoneNumber', _source, newNum)
 end)
 
 -- DRIVER LICENSE CARD
